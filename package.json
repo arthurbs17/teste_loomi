@@ -1,0 +1,16 @@
+{
+  "name": "loomitest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:arthurbs17/teste_loomi.git",
+  "author": "Arthur Sarmento <arthurbs17@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.29",
+    "prisma": "^3.13.0"
+  }
+}
