@@ -31,10 +31,10 @@ model Pedido {
     id String @id @default(uuid())
     cliente Cliente @relation(fields: [cliente_id], references: [id])
     data_pedido DateTime @default(now())
-    status String
+    status String @default("pendente")
     
-    lista_produto Produto[]
     cliente_id String
+    lista_produtos ProdutosNoPedido[]
 }
 
 model Produto {
@@ -45,6 +45,15 @@ model Produto {
     caracteristicas String
     imagem String
 
-    pedido_id String
-    pedido Pedido @relation(fields: [pedido_id], references: [id])
+    pedidos ProdutosNoPedido[]
+}
+
+model ProdutosNoPedido{
+  id String @id @default(uuid())
+  
+  produto Produto @relation(fields: [produto_id], references: [id])
+  produto_id String
+
+  pedido Pedido @relation(fields: [pedido_id], references: [id])
+  pedido_id String
 }

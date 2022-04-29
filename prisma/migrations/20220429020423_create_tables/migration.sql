@@ -37,9 +37,17 @@ CREATE TABLE "Produto" (
     "codigo" TEXT NOT NULL,
     "caracteristicas" TEXT NOT NULL,
     "imagem" TEXT NOT NULL,
-    "pedido_id" TEXT NOT NULL,
 
     CONSTRAINT "Produto_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ProdutosNoPedido" (
+    "id" TEXT NOT NULL,
+    "produto_id" TEXT NOT NULL,
+    "pedido_id" TEXT NOT NULL,
+
+    CONSTRAINT "ProdutosNoPedido_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -55,4 +63,7 @@ CREATE UNIQUE INDEX "Produto_codigo_key" ON "Produto"("codigo");
 ALTER TABLE "Pedido" ADD CONSTRAINT "Pedido_cliente_id_fkey" FOREIGN KEY ("cliente_id") REFERENCES "Cliente"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Produto" ADD CONSTRAINT "Produto_pedido_id_fkey" FOREIGN KEY ("pedido_id") REFERENCES "Pedido"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ProdutosNoPedido" ADD CONSTRAINT "ProdutosNoPedido_pedido_id_fkey" FOREIGN KEY ("pedido_id") REFERENCES "Pedido"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ProdutosNoPedido" ADD CONSTRAINT "ProdutosNoPedido_produto_id_fkey" FOREIGN KEY ("produto_id") REFERENCES "Produto"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
