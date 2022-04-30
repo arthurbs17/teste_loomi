@@ -1,4 +1,4 @@
-import e, { Request, Response } from "express";
+import { Request, Response } from "express";
 import { ClienteRepository } from "../repository/ClienteRepository";
 
 class GetClienteByIdController {
