@@ -8,9 +8,11 @@ class GetClienteByIdController {
 
       const cliente = await new ClienteRepository().findById(cliente_id);
 
+      delete cliente.senha;
+
       return res.status(200).json(cliente);
-    } catch (error) {
-      return res.status(404).json(e);
+    } catch (e) {
+      return res.status(404).json({ error: "cliente not found" });
     }
   }
 }

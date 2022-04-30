@@ -6,6 +6,11 @@ export interface ICreateClientDTO {
   endereco: string;
 }
 
-export interface IClienteInterface extends ICreateClientDTO {
+export interface IClienteInterface {
   id: string;
+  nome: string;
+  email: string;
+  senha?: string;
+  telefone: string;
+  endereco: string;
 }
