@@ -35,6 +35,12 @@ class ClienteRepository implements IClienteRepository {
 
     return cliente;
   }
+
+  async delete(id: string): Promise<void> {
+    const cliente = await this.prismaCliente.cliente.delete({
+      where: { id },
+    });
+  }
 }
 
 export { ClienteRepository };
