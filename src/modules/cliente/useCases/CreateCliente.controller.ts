@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { ClienteRepository } from "../repository/ClienteRepository";
+import { UserRepository } from "../../user/repository/UserRepository";
 
 class CreateClienteController {
   async handle(req: Request, res: Response): Promise<Response> {
@@ -7,6 +8,11 @@ class CreateClienteController {
       const data = req.validated;
 
       const createCliente = await new ClienteRepository().create(data);
+
+      await new UserRepository().create({
+        email: data.email,
+        senha: data.senha,
+      });
 
       delete createCliente.senha;
 
