@@ -7,12 +7,12 @@ class CreateClienteController {
     try {
       const data = req.validated;
 
-      const createCliente = await new ClienteRepository().create(data);
-
       await new UserRepository().create({
         email: data.email,
         senha: data.senha,
       });
+
+      const createCliente = await new ClienteRepository().create(data);
 
       delete createCliente.senha;
 
