@@ -4,6 +4,7 @@ export interface ICreateUserDTO {
 }
 
 export interface IUserInterface {
+  id: string;
   email: string;
   senha?: string;
 }
