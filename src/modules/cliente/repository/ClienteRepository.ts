@@ -41,6 +41,15 @@ class ClienteRepository implements IClienteRepository {
       where: { id },
     });
   }
+
+  async update(id: string, data: any): Promise<IClienteInterface> {
+    const cliente = await this.prismaCliente.cliente.update({
+      where: { id },
+      data: { ...data },
+    });
+
+    return cliente;
+  }
 }
 
 export { ClienteRepository };

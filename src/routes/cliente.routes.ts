@@ -5,12 +5,15 @@ import { validateShape } from "../middlewares/validateShape.middleware";
 import { createClienteSchema } from "../schemas/createCliente.schema";
 import { DeleteClienteController } from "../modules/cliente/useCases/DeleteCliente.controller";
 import { authenticateToken } from "../middlewares/authenticateToken.middleware";
+import { UpdateClienteController } from "../modules/cliente/useCases/UpdateCliente.controller";
+import { updateClienteSchema } from "../schemas/updateCliente.schema";
 
 const clienteRouter = Router();
 
 const createClienteController = new CreateClienteController();
 const getClienteByIdController = new GetClienteByIdController();
 const deleteClienteController = new DeleteClienteController();
+const updateClienteController = new UpdateClienteController();
 
 clienteRouter.post(
   "/register",
@@ -30,4 +33,10 @@ clienteRouter.delete(
   deleteClienteController.handle
 );
 
+clienteRouter.patch(
+  "/:cliente_id",
+  authenticateToken,
+  validateShape(updateClienteSchema),
+  updateClienteController.handle
+);
 export { clienteRouter };

@@ -39,6 +39,13 @@ class UserRepository implements IUserRepository {
   async delete(email: string): Promise<void> {
     const user = await this.prismaUser.user.delete({ where: { email } });
   }
+
+  async update(id: string, data: any): Promise<void> {
+    const user = await this.prismaUser.user.update({
+      where: { id },
+      data: { ...data },
+    });
+  }
 }
 
 export { UserRepository };
