@@ -5,4 +5,5 @@ export const createProdutoSchema = yup.object().shape({
   preco: yup.string().required("preço is a required field"),
   codigo: yup.string().required("codigo is a required field"),
   caracteristicas: yup.string().required("caracteristicas is a required field"),
+  imagem: yup.string(),
 });
