@@ -17,7 +17,7 @@ class ProdutoRepository implements IProdutoRepository {
 
   async findByNome(nome: string): Promise<IProdutoInterface[]> {
     const produto = await this.prismaProduto.produto.findMany({
-      where: { nome },
+      where: { nome: { contains: nome } },
     });
 
     return produto;
