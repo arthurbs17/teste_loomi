@@ -7,7 +7,10 @@ import { DeleteProdutoController } from "../modules/produto/useCases/DeleteProdu
 import { DeleteProdutoByIdController } from "../modules/produto/useCases/DeleteProdutoById.controller";
 import { GetProdutoByIdController } from "../modules/produto/useCases/GetProdutoById.controller";
 import { GetProdutoWithParamsController } from "../modules/produto/useCases/GetProdutoWithParams.controller";
+import { UpdateProdutoByCodController } from "../modules/produto/useCases/updateProdutoByCod.controller";
+import { UpdateProdutoByIdController } from "../modules/produto/useCases/UpdateProdutoById.controller";
 import { createProdutoSchema } from "../schemas/createProduto.schema";
+import { updateProdutoSchema } from "../schemas/updateProduto.schema";
 
 const produtoRouter = Router();
 
@@ -16,6 +19,8 @@ const getProdutoWithParamsController = new GetProdutoWithParamsController();
 const getProdutoByIdController = new GetProdutoByIdController();
 const deleteProdutoController = new DeleteProdutoController();
 const deleteProdutoByIdController = new DeleteProdutoByIdController();
+const updateProdutoByIdController = new UpdateProdutoByIdController();
+const updateProdutoByCodController = new UpdateProdutoByCodController();
 
 produtoRouter.post(
   "/register",
@@ -49,6 +54,22 @@ produtoRouter.delete(
   authenticateToken,
   verifyIfIsCliente,
   deleteProdutoByIdController.handle
+);
+
+produtoRouter.patch(
+  "/update",
+  validateShape(updateProdutoSchema),
+  authenticateToken,
+  verifyIfIsCliente,
+  updateProdutoByCodController.handle
+);
+
+produtoRouter.patch(
+  "/update/:produto_id",
+  validateShape(updateProdutoSchema),
+  authenticateToken,
+  verifyIfIsCliente,
+  updateProdutoByIdController.handle
 );
 
 export { produtoRouter };

@@ -3,7 +3,7 @@ export interface ICreateProdutoDTO {
   preco: string;
   codigo: string;
   caracteristicas: string;
-  imagem: string;
+  imagem: string | null;
 }
 
 export interface IProdutoInterface {
@@ -12,5 +12,5 @@ export interface IProdutoInterface {
   preco: string;
   codigo: string;
   caracteristicas: string;
-  imagem: string;
+  imagem: string | null;
 }
