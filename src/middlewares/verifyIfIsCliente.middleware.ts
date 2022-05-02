@@ -6,19 +6,19 @@ const verifyIfIsCliente = async (
   res: Response,
   next: NextFunction
 ) => {
-  const user = req.user;
+  try {
+    const user = req.user;
 
-  if (!user) {
-    return res.status(401).json({ message: "unauthorize request" });
-  }
+    if (!user) {
+      return res.status(401).json({ message: "unauthorize request" });
+    }
 
-  const cliente = await new ClienteRepository().findByEmail(user.email);
+    await new ClienteRepository().findByEmail(user.email);
 
-  if (cliente) {
     return res.status(401).json({ message: "access not allowed for clientes" });
+  } catch (e) {
+    return next();
   }
-
-  return next();
 };
 
 export { verifyIfIsCliente };

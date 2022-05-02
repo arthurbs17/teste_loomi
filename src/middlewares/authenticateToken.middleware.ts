@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import JWT from "jsonwebtoken";
 import { jwtConifg } from "../database/auth";
-import { ClienteRepository } from "../modules/cliente/repository/ClienteRepository";
 import { UserRepository } from "../modules/user/repository/UserRepository";
 
 const authenticateToken = async (
@@ -24,16 +23,8 @@ const authenticateToken = async (
 
     req.user = await new UserRepository().findByEmail(decode.email);
     delete req.user.senha;
+    return next();
   });
-
-  const { cliente_id } = req.params;
-  const cliente = await new ClienteRepository().findById(cliente_id);
-
-  if (req.user.email !== cliente.email) {
-    return res.status(401).json({ message: "cliente token not match" });
-  }
-
-  return next();
 };
 
 export { authenticateToken };
