@@ -10,6 +10,7 @@ import { updateClienteSchema } from "../schemas/updateCliente.schema";
 import { GetAllClientesController } from "../modules/cliente/useCases/GetAllClientes.controller";
 import { verifyIfIsCliente } from "../middlewares/verifyIfIsCliente.middleware";
 import { verifySameCliente } from "../middlewares/verifySameCliente.middleware";
+import { CreatePedidoController } from "../modules/pedido/useCases/CreatePedido.controller";
 
 const clienteRouter = Router();
 
@@ -18,6 +19,7 @@ const getClienteByIdController = new GetClienteByIdController();
 const deleteClienteController = new DeleteClienteController();
 const updateClienteController = new UpdateClienteController();
 const getAllClientesController = new GetAllClientesController();
+const createPedidoController = new CreatePedidoController();
 
 clienteRouter.post(
   "/register",
@@ -52,6 +54,13 @@ clienteRouter.patch(
   verifySameCliente,
   validateShape(updateClienteSchema),
   updateClienteController.handle
+);
+
+clienteRouter.post(
+  "/novo_pedido/:cliente_id",
+  authenticateToken,
+  verifySameCliente,
+  createPedidoController.handle
 );
 
 export { clienteRouter };
