@@ -6,4 +6,5 @@ export interface IClienteRepository {
   findById(id: string): Promise<IClienteInterface>;
   delete(id: string): Promise<void>;
   update(id: string, data: any): Promise<IClienteInterface>;
+  list(): Promise<IClienteInterface[]>;
 }

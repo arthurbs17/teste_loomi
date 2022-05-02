@@ -50,6 +50,12 @@ class ClienteRepository implements IClienteRepository {
 
     return cliente;
   }
+
+  async list(): Promise<IClienteInterface[]> {
+    const clientes = await this.prismaCliente.cliente.findMany();
+
+    return clientes;
+  }
 }
 
 export { ClienteRepository };
