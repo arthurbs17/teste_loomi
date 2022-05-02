@@ -43,7 +43,7 @@ model Produto {
     preco String
     codigo String @unique
     caracteristicas String
-    imagem String
+    imagem String?
 
     pedidos ProdutosNoPedido[]
 }

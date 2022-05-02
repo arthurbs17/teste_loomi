@@ -7,6 +7,9 @@ class CreateClienteController {
     try {
       const data = req.validated;
 
+      data.email = data.email.toLowerCase();
+      data.nome = data.nome.toLowerCase();
+
       await new UserRepository().create({
         email: data.email,
         senha: data.senha,
