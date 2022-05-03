@@ -115,7 +115,7 @@
     },
     "/cliente/delete/:cliente_id": {
       "delete": {
-        "description": "Rota responsável por retornar o cliente pelo id",
+        "description": "Rota responsável por deletar o cliente pelo id",
         "security": [{ "bearerToken": ["token"] }],
         "parameters": [{ "description": "Requerido o token do cliente_id" }],
         "requestBody": {
@@ -133,7 +133,7 @@
     },
     "/cliente/novo_pedido/:cliente_id": {
       "post": {
-        "description": "Rota responsável por retornar o cliente pelo id",
+        "description": "Rota responsável por cadastrar um novo pedido para cliente",
         "security": [{ "bearerToken": ["token"] }],
         "parameters": [{ "description": "Requerido o token do cliente_id" }],
         "requestBody": {
@@ -165,7 +165,7 @@
     },
     "/cliente/update/:cliente_id": {
       "patch": {
-        "description": "Rota responsável por retornar o cliente pelo id",
+        "description": "Rota responsável por atualizar as informações do cliente",
         "security": [{ "bearerToken": ["token"] }],
         "parameters": [{ "description": "Requerido o token do cliente_id" }],
         "requestBody": {
@@ -200,6 +200,72 @@
           },
           "401": {
             "description": "message: cliente token not match"
+          }
+        }
+      }
+    },
+    "/produto/register": {
+      "post": {
+        "tags": ["Produto"],
+        "description": "Rota responsável pela criação do produto",
+        "security": [
+          { "bearerToken": ["É necessário token que não seja do cliente"] }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string"
+                  },
+                  "preco": {
+                    "type": "string"
+                  },
+                  "codigo": {
+                    "type": "string"
+                  },
+                  "caracteristicas": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "nome": "calça",
+                  "preco": "20,00",
+                  "codigo": "6",
+                  "caracteristicas": "calça confortável"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "409": {
+            "description": "codigo already registered"
+          }
+        }
+      }
+    },
+    "/produto/": {
+      "get": {
+        "tags": ["Produto"],
+        "description": "Rota responsável por listar os produtos",
+        "security": [{ "bearerToken": ["É necessário token"] }],
+        "requestBody": {
+          "content": {
+            "No content": {}
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "409": {
+            "description": "error: cliente not found"
           }
         }
       }
