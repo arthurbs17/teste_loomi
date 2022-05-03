@@ -1,0 +1,208 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Api Teste Loomi",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3333/",
+      "description": "base url"
+    }
+  ],
+  "paths": {
+    "/cliente/register": {
+      "post": {
+        "description": "Rota responsável pela criação do cliente",
+        "security": [{ "noToken": ["Rota sem necessidade de autenticação"] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "senha": {
+                    "type": "string"
+                  },
+                  "telefone": {
+                    "type": "string"
+                  },
+                  "endereco": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "nome": "Arthur",
+                  "email": "arthur23@email.com",
+                  "senha": "123456",
+                  "telefone": "912345678",
+                  "endereco": "Av. Barão de Lucena, 35, Centro, Jaboatão"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "409": {
+            "description": "email already exists"
+          }
+        }
+      }
+    },
+    "/cliente/": {
+      "get": {
+        "description": "Rota responsável por retornar todos clientes",
+        "security": [{ "bearerToken": ["token"] }],
+        "requestBody": {
+          "content": { "No content": {} }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "access not allowed for clientes"
+          }
+        }
+      }
+    },
+    "/cliente/profile": {
+      "get": {
+        "description": "Rota responsável por retornar o perfil do cliente",
+        "security": [{ "bearerToken": ["token"] }],
+        "parameters": [{ "description": "Required cliente token" }],
+        "requestBody": {
+          "content": { "No content": {} }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "name: JsonWebTokenError"
+          }
+        }
+      }
+    },
+    "/cliente/:cliente_id": {
+      "get": {
+        "description": "Rota responsável por retornar o cliente pelo id",
+        "security": [{ "bearerToken": ["token"] }],
+        "parameters": [
+          { "description": "Requerido um token válido sem ser do cliente" }
+        ],
+        "requestBody": {
+          "content": { "No content": {} }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "message: access not allowed for clientes"
+          }
+        }
+      }
+    },
+    "/cliente/delete/:cliente_id": {
+      "delete": {
+        "description": "Rota responsável por retornar o cliente pelo id",
+        "security": [{ "bearerToken": ["token"] }],
+        "parameters": [{ "description": "Requerido o token do cliente_id" }],
+        "requestBody": {
+          "content": { "No content": {} }
+        },
+        "responses": {
+          "204": {
+            "description": "No body response"
+          },
+          "401": {
+            "description": "message: cliente token not match"
+          }
+        }
+      }
+    },
+    "/cliente/novo_pedido/:cliente_id": {
+      "post": {
+        "description": "Rota responsável por retornar o cliente pelo id",
+        "security": [{ "bearerToken": ["token"] }],
+        "parameters": [{ "description": "Requerido o token do cliente_id" }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "produto_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "message: cliente token not match"
+          }
+        }
+      }
+    },
+    "/cliente/update/:cliente_id": {
+      "patch": {
+        "description": "Rota responsável por retornar o cliente pelo id",
+        "security": [{ "bearerToken": ["token"] }],
+        "parameters": [{ "description": "Requerido o token do cliente_id" }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "senha": {
+                    "type": "string"
+                  },
+                  "telefone": {
+                    "type": "string"
+                  },
+                  "endereco": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "message: cliente token not match"
+          }
+        }
+      }
+    }
+  }
+}
