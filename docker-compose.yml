@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=db_loomi
+    volumes:
+      - pgdata:/data/postgres
+    ports:
+      - 5432:5432
+
+volumes:
+  pgdata:
+    driver: local
