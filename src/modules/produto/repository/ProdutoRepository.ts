@@ -75,6 +75,15 @@ class ProdutoRepository implements IProdutoRepository {
     return produto;
   }
 
+  async uploadImagem(id: string, url: any): Promise<IProdutoInterface> {
+    const produto = await this.prismaProduto.produto.update({
+      where: { id },
+      data: { ...url },
+    });
+
+    return produto;
+  }
+
   async list(): Promise<IProdutoInterface[]> {
     const produtos = await this.prismaProduto.produto.findMany();
 

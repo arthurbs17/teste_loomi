@@ -1,4 +1,6 @@
 import { Router } from "express";
+import multer from "multer";
+import multerConfig from "../configs/multer/multer.config";
 import { authenticateToken } from "../middlewares/authenticateToken.middleware";
 import { validateShape } from "../middlewares/validateShape.middleware";
 import { verifyIfIsCliente } from "../middlewares/verifyIfIsCliente.middleware";
@@ -9,6 +11,7 @@ import { GetProdutoByIdController } from "../modules/produto/useCases/GetProduto
 import { GetProdutoWithParamsController } from "../modules/produto/useCases/GetProdutoWithParams.controller";
 import { UpdateProdutoByCodController } from "../modules/produto/useCases/updateProdutoByCod.controller";
 import { UpdateProdutoByIdController } from "../modules/produto/useCases/UpdateProdutoById.controller";
+import { UploadImagemProdutoController } from "../modules/produto/useCases/UploadImagemProduto.controller";
 import { createProdutoSchema } from "../schemas/createProduto.schema";
 import { updateProdutoSchema } from "../schemas/updateProduto.schema";
 
@@ -21,6 +24,9 @@ const deleteProdutoController = new DeleteProdutoController();
 const deleteProdutoByIdController = new DeleteProdutoByIdController();
 const updateProdutoByIdController = new UpdateProdutoByIdController();
 const updateProdutoByCodController = new UpdateProdutoByCodController();
+const uploadImagemProdutoController = new UploadImagemProdutoController();
+
+const uploadMulter = multer(multerConfig.upload());
 
 produtoRouter.post(
   "/register",
@@ -70,6 +76,14 @@ produtoRouter.patch(
   authenticateToken,
   verifyIfIsCliente,
   updateProdutoByIdController.handle
+);
+
+produtoRouter.post(
+  "/upload_imagem/:produto_id",
+  authenticateToken,
+  verifyIfIsCliente,
+  uploadMulter.single("file"),
+  uploadImagemProdutoController.handle
 );
 
 export { produtoRouter };

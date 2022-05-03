@@ -12,5 +12,6 @@ export interface IProdutoRepository {
   deleteForCodigo(codigo: string): Promise<void>;
   updateForId(id: string, data: any): Promise<IProdutoInterface>;
   updateForCodigo(codigo: string, data: any): Promise<IProdutoInterface>;
+  uploadImagem(id: string, url: any): Promise<IProdutoInterface>;
   list(): Promise<IProdutoInterface[]>;
 }
