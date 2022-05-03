@@ -50,14 +50,14 @@ clienteRouter.get(
 );
 
 clienteRouter.delete(
-  "/:cliente_id",
+  "/delete/:cliente_id",
   authenticateToken,
   verifySameCliente,
   deleteClienteController.handle
 );
 
 clienteRouter.patch(
-  "/:cliente_id",
+  "/update/:cliente_id",
   authenticateToken,
   verifySameCliente,
   validateShape(updateClienteSchema),
