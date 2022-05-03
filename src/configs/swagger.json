@@ -15,7 +15,6 @@
       "post": {
         "tags": ["Cliente"],
         "description": "Rota responsável pela criação do cliente",
-        "security": [{ "noToken": ["Rota sem necessidade de autenticação"] }],
         "requestBody": {
           "content": {
             "application/json": {
@@ -172,7 +171,7 @@
     "/cliente/update/:cliente_id": {
       "patch": {
         "tags": ["Cliente"],
-       "description": "Rota responsável por atualizar as informações do cliente",
+        "description": "Rota responsável por atualizar as informações do cliente",
         "security": [{ "bearerToken": ["token"] }],
         "parameters": [{ "description": "Requerido o token do cliente_id" }],
         "requestBody": {
@@ -271,8 +270,329 @@
           "200": {
             "description": "Ok"
           },
-          "409": {
+          "404": {
             "description": "error: cliente not found"
+          }
+        }
+      }
+    },
+    "/produto/:produto_id": {
+      "get": {
+        "tags": ["Produto"],
+        "description": "Rota responsável por retornar um produto especifico",
+        "security": [{ "bearerToken": ["É necessário token"] }],
+        "requestBody": {
+          "content": {
+            "No content": {}
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "error: cliente not found"
+          }
+        }
+      }
+    },
+    "/produto/delete": {
+      "delete": {
+        "tags": ["Produto"],
+        "description": "Rota responsável por deletar um produto especifico pelo Código",
+        "security": [
+          { "bearerToken": ["É necessário token sem ser o do cliente"] }
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "description": "",
+            "in": "query",
+            "schema": { "example": "?codigo=CODIGO DO PRODUTO" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "No content": {}
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No body response"
+          },
+          "403": {
+            "description": "access not allowed for clientes"
+          }
+        }
+      }
+    },
+    "/produto/delete/:produto_id": {
+      "delete": {
+        "tags": ["Produto"],
+        "description": "Rota responsável por deletar um produto especifico pelo ID",
+        "security": [
+          { "bearerToken": ["É necessário token sem ser o do cliente"] }
+        ],
+        "requestBody": {
+          "content": {
+            "No content": {}
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No body response"
+          },
+          "403": {
+            "description": "access not allowed for clientes"
+          }
+        }
+      }
+    },
+    "/produto/update": {
+      "patch": {
+        "tags": ["Produto"],
+        "description": "Rota responsável por atualizar um produto especifico pelo Código",
+        "security": [
+          { "bearerToken": ["É necessário token sem ser o do cliente"] }
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "description": "",
+            "in": "query",
+            "schema": { "example": "?codigo=CODIGO DO PRODUTO" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string"
+                  },
+                  "preco": {
+                    "type": "string"
+                  },
+                  "codigo": {
+                    "type": "string"
+                  },
+                  "caracteristicas": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "nome": "calça",
+                  "preco": "21,00",
+                  "codigo": "6",
+                  "caracteristicas": "calça confortável"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "403": {
+            "description": "error: access not allowed for clientes"
+          }
+        }
+      }
+    },
+    "/produto/update/:produto_id": {
+      "patch": {
+        "tags": ["Produto"],
+        "description": "Rota responsável por atualizar um produto especifico pelo ID",
+        "security": [
+          { "bearerToken": ["É necessário token sem ser o do cliente"] }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string"
+                  },
+                  "preco": {
+                    "type": "string"
+                  },
+                  "codigo": {
+                    "type": "string"
+                  },
+                  "caracteristicas": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "nome": "calça",
+                  "preco": "21,00",
+                  "codigo": "6",
+                  "caracteristicas": "calça confortável"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "403": {
+            "description": "error: access not allowed for clientes"
+          }
+        }
+      }
+    },
+    "/produto/upload_imagem/:produto_id": {
+      "post": {
+        "tags": ["Produto"],
+        "description": "Rota responsável por adcionar imagem a um produto especifico pelo ID",
+        "security": [
+          { "bearerToken": ["É necessário token sem ser o do cliente"] }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "contentType": "imagem/jpg, imagem/jpeg, imagem/png"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "403": {
+            "description": "error: access not allowed for clientes"
+          }
+        }
+      }
+    },
+    "/pedido/cliente/:cliente_id": {
+      "get": {
+        "tags": ["Pedido"],
+        "description": "Rota responsável por retornar os pedidos especificos pelo cliente_id",
+        "security": [{ "bearerToken": ["É necessário token"] }],
+        "requestBody": {
+          "content": {
+            "Nocontent": {}
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "error: error: cliente not found"
+          }
+        }
+      }
+    },
+    "/pedido/update/:pedido_id": {
+      "put": {
+        "tags": ["Pedido"],
+        "description": "Rota responsável por alterar um pedido especifico pelo id",
+        "security": [
+          { "bearerToken": ["É necessário token sem ser o do cliente"] }
+        ],
+        "requestBody": {
+          "content": {
+            "Nocontent": {}
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "403": {
+            "description": "error: access not allowed for clientes"
+          }
+        }
+      }
+    },
+    "/user/register": {
+      "post": {
+        "tags": ["User"],
+        "description": "Rota responsável por criar um usuário que não é cliente",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "senha": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "email": "johndoe@email.com",
+                  "senha": "123456"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/user/sigin": {
+      "post": {
+        "tags": ["User"],
+        "description": "Rota responsável fazer o login do cliente/user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "senha": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "email": "johndoe@gmail.com",
+                  "senha": "123456"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "400": {
+            "description": "error: wrong email/senha"
           }
         }
       }
