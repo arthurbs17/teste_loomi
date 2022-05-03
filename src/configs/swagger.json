@@ -13,6 +13,7 @@
   "paths": {
     "/cliente/register": {
       "post": {
+        "tags": ["Cliente"],
         "description": "Rota responsável pela criação do cliente",
         "security": [{ "noToken": ["Rota sem necessidade de autenticação"] }],
         "requestBody": {
@@ -60,6 +61,7 @@
     },
     "/cliente/": {
       "get": {
+        "tags": ["Cliente"],
         "description": "Rota responsável por retornar todos clientes",
         "security": [{ "bearerToken": ["token"] }],
         "requestBody": {
@@ -77,6 +79,7 @@
     },
     "/cliente/profile": {
       "get": {
+        "tags": ["Cliente"],
         "description": "Rota responsável por retornar o perfil do cliente",
         "security": [{ "bearerToken": ["token"] }],
         "parameters": [{ "description": "Required cliente token" }],
@@ -95,6 +98,7 @@
     },
     "/cliente/:cliente_id": {
       "get": {
+        "tags": ["Cliente"],
         "description": "Rota responsável por retornar o cliente pelo id",
         "security": [{ "bearerToken": ["token"] }],
         "parameters": [
@@ -115,6 +119,7 @@
     },
     "/cliente/delete/:cliente_id": {
       "delete": {
+        "tags": ["Cliente"],
         "description": "Rota responsável por retornar o cliente pelo id",
         "security": [{ "bearerToken": ["token"] }],
         "parameters": [{ "description": "Requerido o token do cliente_id" }],
@@ -133,6 +138,7 @@
     },
     "/cliente/novo_pedido/:cliente_id": {
       "post": {
+        "tags": ["Cliente"],
         "description": "Rota responsável por retornar o cliente pelo id",
         "security": [{ "bearerToken": ["token"] }],
         "parameters": [{ "description": "Requerido o token do cliente_id" }],
@@ -165,6 +171,7 @@
     },
     "/cliente/update/:cliente_id": {
       "patch": {
+        "tags": ["Cliente"],
         "description": "Rota responsável por retornar o cliente pelo id",
         "security": [{ "bearerToken": ["token"] }],
         "parameters": [{ "description": "Requerido o token do cliente_id" }],
