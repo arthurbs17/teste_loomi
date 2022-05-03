@@ -27,7 +27,7 @@ class LoginUserController {
 
       return res.status(200).json({ acessToken: token });
     } catch (e) {
-      return res.status(401).json(e);
+      return res.status(401).json({ error: "wrong email/senha" });
     }
   }
 }

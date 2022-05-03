@@ -11,6 +11,7 @@ import { GetAllClientesController } from "../modules/cliente/useCases/GetAllClie
 import { verifyIfIsCliente } from "../middlewares/verifyIfIsCliente.middleware";
 import { verifySameCliente } from "../middlewares/verifySameCliente.middleware";
 import { CreatePedidoController } from "../modules/pedido/useCases/CreatePedido.controller";
+import { GetClienteProfileController } from "../modules/cliente/useCases/getClienteProfile.controller";
 
 const clienteRouter = Router();
 
@@ -20,11 +21,18 @@ const deleteClienteController = new DeleteClienteController();
 const updateClienteController = new UpdateClienteController();
 const getAllClientesController = new GetAllClientesController();
 const createPedidoController = new CreatePedidoController();
+const getClienteProfileController = new GetClienteProfileController();
 
 clienteRouter.post(
   "/register",
   validateShape(createClienteSchema),
   createClienteController.handle
+);
+
+clienteRouter.get(
+  "/profile",
+  authenticateToken,
+  getClienteProfileController.handle
 );
 
 clienteRouter.get(
